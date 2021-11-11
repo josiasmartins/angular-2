@@ -1,7 +1,8 @@
 <h4 class="text-center">Login</h4>
 
 <!-- formGroup: ele controla a validação de formulário -->
-<form [formGroup]="loginForm" class="form mt-4">
+<!-- (submit): quando o formulário for disparado, vai chamar o login -->
+<form [formGroup]="loginForm" class="form mt-4" (submit)="login()">
 
   <div class="form-group">
     <!-- formControlName: é uma diretiva disponibilizado pelo ReactForm; não faz data binding -->
