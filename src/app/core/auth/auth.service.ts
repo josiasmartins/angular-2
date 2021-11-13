@@ -1,3 +1,4 @@
+import { TokenService } from './../token/token.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators'
@@ -13,7 +14,10 @@ export class AuthService {
 
   // para realizar requisição asincronas, preciso do HttpClient
   // se não colocar private, ele não vai ser um atributo, por isso sem acesso
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private TokenService: TokenService
+    ) { }
 
   authenticate(userName: string, password: string) {
     // quando o nome de uma variável é o parametro, pode omitir
@@ -23,8 +27,12 @@ export class AuthService {
       // observe: tem acesso ao cabeçalho, tudo que tem direito a resposta
       {observe: 'response'})
     // pipe(): permite colocar operações que serã aplicados filtros, timeOut
-    .pipe(tap(res => {
+    .pipe(tap(res => {;
       const authToken = res.headers.get('x-access-token');
+      // todo vez que autenticar, ele quarda no localStores
+      // localStore: é uma area do navegador onde pode dar uma chave e quardar um valor nesse local;
+      // window.localStorage.setItem('authToken', authToken);
+      this.TokenService.setToken(authToken);
       console.log(`User ${userName} authenticated with token ${authToken}`);
     }))
   }
