@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators'
 
 const API_URL = 'http://localhost:3000';
 @Injectable({
@@ -16,6 +17,15 @@ export class AuthService {
 
   authenticate(userName: string, password: string) {
     // quando o nome de uma variável é o parametro, pode omitir
-    return this.http.post(API_URL + '/user/login', {userName, password})
+    return this.http.post(
+      API_URL + '/user/login',
+      {userName, password},
+      // observe: tem acesso ao cabeçalho, tudo que tem direito a resposta
+      {observe: 'response'})
+    // pipe(): permite colocar operações que serã aplicados filtros, timeOut
+    .pipe(tap(res => {
+      const authToken = res.headers.get('x-access-token');
+      console.log(`User ${userName} authenticated with token ${authToken}`);
+    }))
   }
 }
