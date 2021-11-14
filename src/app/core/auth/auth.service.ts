@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { TokenService } from './../token/token.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,7 +17,7 @@ export class AuthService {
   // se não colocar private, ele não vai ser um atributo, por isso sem acesso
   constructor(
     private http: HttpClient,
-    private TokenService: TokenService
+    private userService: UserService
     ) { }
 
   authenticate(userName: string, password: string) {
@@ -32,7 +33,7 @@ export class AuthService {
       // todo vez que autenticar, ele quarda no localStores
       // localStore: é uma area do navegador onde pode dar uma chave e quardar um valor nesse local;
       // window.localStorage.setItem('authToken', authToken);
-      this.TokenService.setToken(authToken);
+      this.userService.setToken(authToken);
       console.log(`User ${userName} authenticated with token ${authToken}`);
     }))
   }
