@@ -4,7 +4,9 @@
 
     <!-- async: consegue pegar um valor da emissão desse Observable 'user$' -->
     <div *ngIf="(user$ | async) as userInterface; else login">
-      <i class="fa fa-user-circle"></i>
+      <i class="fa fa-user-circle mr-1"></i>
+      <a class="mr-1">{{ user.name }}</a>
+      <a (click)="logout()">(Logout)</a>
       <a class="ml-2">{{ userInterface.name }}</a>
     </div>
 

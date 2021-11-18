@@ -34,4 +34,10 @@ export class UserService {
     const user = jtw_decode(token) as UserInterface;
     this.userSubject.next(user);
   }
+
+  logout() {
+    this.tokenService.removeToken();
+    // tem sumir o nome do usuário que está no header
+    this.userSubject.next(null)
+  }
 }
