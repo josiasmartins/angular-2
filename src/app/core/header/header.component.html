@@ -5,14 +5,14 @@
     <!-- async: consegue pegar um valor da emissão desse Observable 'user$' -->
     <div *ngIf="(user$ | async) as userInterface; else login">
       <i class="fa fa-user-circle mr-1"></i>
-      <a class="mr-1">{{ user.name }}</a>
+      <a class="mr-1">{{ userInterface.name }}</a>
       <a (click)="logout()">(Logout)</a>
-      <a class="ml-2">{{ userInterface.name }}</a>
+      <!-- <a class="ml-2">{{ userInterface.name }}</a> -->
     </div>
 
     <ng-template #login>
       <span class="navbar-text">
-        Please, login!
+        <a [routerLink]="['user', 'flavio']">Please, login!</a>
       </span>
     </ng-template>
   </nav>

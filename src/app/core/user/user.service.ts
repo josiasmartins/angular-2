@@ -12,6 +12,7 @@ export class UserService {
   // BehaviorSubject<UserInterface>(): ele precisa receber o valor que vai emitir no começo
   // ele emite um valor e guarda esse valor até alguém consumir esse valor
   private userSubject = new BehaviorSubject<UserInterface>(null);
+  private userName: string;
 
   constructor(private tokenService: TokenService) {
 
@@ -32,6 +33,7 @@ export class UserService {
     const token =  this.tokenService.getToken();
     // as: vai garantir que quando for codificado, move para UserInterface
     const user = jtw_decode(token) as UserInterface;
+    this.userName = user.name;
     this.userSubject.next(user);
   }
 
@@ -39,5 +41,13 @@ export class UserService {
     this.tokenService.removeToken();
     // tem sumir o nome do usuário que está no header
     this.userSubject.next(null)
+  }
+
+  isLogged() {
+    return this.tokenService.hasToken();
+  }
+
+  getUserName() {
+    return this.userName;
   }
 }
