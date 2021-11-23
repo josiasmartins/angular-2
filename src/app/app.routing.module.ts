@@ -1,6 +1,4 @@
-import { SignUpComponent } from './home/signup/signup.component';
 import { AuthGuard } from './core/auth/auth.guard';
-import { SigninComponent } from './home/signin/signin.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 
@@ -12,12 +10,15 @@ import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 const routes: Routes = [
     {
       path: '',
-      component: SigninComponent,
-      canActivate: [AuthGuard]
+      // tem que exatamento igual a rota de barra
+      pathMatch: 'full',
+      redirectTo: 'home'
     },
     {
-      path: 'signup',
-      component: SignUpComponent
+      path: 'home',
+      // loadChildren: vai carregar o modulo sobre demanda
+      // ./ e a pasta atual
+      loadChildren: './home/home.module.ts#HomeModule'
     },
     {
         path: 'user/:userName',
@@ -38,7 +39,8 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes)
+      // adiciona o hash no começo do endereço (#)
+        RouterModule.forRoot(routes, { useHash: true})
     ],
     exports: [ RouterModule ]
 })

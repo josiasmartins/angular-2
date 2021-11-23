@@ -17,7 +17,6 @@ import { ErrorsModule } from './errors/errors.module';
     PhotosModule,
     AppRoutingModule,
     ErrorsModule,
-    HomeModule,
     CoreModule
   ],
   providers: [],

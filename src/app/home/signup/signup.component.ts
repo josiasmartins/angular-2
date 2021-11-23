@@ -1,7 +1,8 @@
+import { PlatformDetectorService } from './../../core/plataform-detector/plataform-detector.service';
 import { SignUpService } from './signup.service';
 import { NewUser } from './new-user';
 import { UserNotTakenValidatorsService } from './user-not-taken.validators.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { validateConfig } from '@angular/router/src/config';
 import { lowerCaseValidators } from 'src/app/shared/validators/lower-case.validators';
@@ -13,13 +14,16 @@ import { Router } from '@angular/router';
 export class SignUpComponent implements OnInit {
 
   signupForm: FormGroup;
+  // ViewChild(): injeta o inputEmail
+  @ViewChild('emailInput') emailInput: ElementRef<HTMLInputElement>;
 
   // formBuilder: passa haja injeção de depência para que eu possa montar esse carinha
   constructor(
     private formBuilder: FormBuilder,
     private userNotTakenValidatorsService: UserNotTakenValidatorsService,
     private signUpService: SignUpService,
-    private router: Router
+    private router: Router,
+    private platformDetectorService: PlatformDetectorService
     ) {
 
   }
@@ -61,6 +65,9 @@ export class SignUpComponent implements OnInit {
         Validators.maxLength(14)
       ]]
     });
+
+    this.platformDetectorService.isPlatformBrowser() &&
+      this.emailInput.nativeElement.focus();
   }
 
   signup() {
