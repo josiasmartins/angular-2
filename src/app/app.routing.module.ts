@@ -18,7 +18,7 @@ const routes: Routes = [
       path: 'home',
       // loadChildren: vai carregar o modulo sobre demanda
       // ./ e a pasta atual
-      loadChildren: './home/home.module.ts#HomeModule'
+      loadChildren: './home/home.module#HomeModule'
     },
     {
         path: 'user/:userName',
