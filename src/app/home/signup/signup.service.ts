@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 const API_URL = 'http://localhost:3000'
 // providenIn: vai uma unica instancia para aplicação inteira
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class SignUpService {
 
   // para acessar, preciso tornar uma propriedade da classe. Faz isso com modificadores de acesso: private, public e protect
