@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { debounceTime, first, map, switchMap } from 'rxjs/operators';
 
 // providebIn: 'root': tem uma única instância que serve para toda aplicação
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class UserNotTakenValidatorsService {
 
   // validators não aceita injeçã de dependencia
